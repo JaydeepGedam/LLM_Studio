@@ -34,7 +34,7 @@ const CustomDropdown = ({ backgroundColor, height, width, options, defaultText }
       style={{ width: `${width}`, backgroundColor, height: `${height}` }}
     >
       <div className="dropdown-header w-full h-full flex items-center" onClick={toggleDropdown}>
-        <span className='text-[18px]'>{selectedOption}</span>
+        <span className='text-sm'>{selectedOption}</span>
         <FiChevronDown className={`float-right dropdown-arrow ${isOpen ? 'open' : ''}`} /> {/* Using React Icon */}
       </div>
       {isOpen && (

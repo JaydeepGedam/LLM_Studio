@@ -52,12 +52,12 @@ const Sidebar = () => {
 
     return (
         <div>
-            <h1 className='text-3xl font-bold'>Welcome, Jaydeep Nitin Gedam</h1>
-            <div className='text-2xl pt-6 flex flex-col gap-6'>
+            <h1 className='text-xl font-bold'>Welcome, Jaydeep Nitin Gedam</h1>
+            <div className='text-[14px] pt-6 flex flex-col gap-4'>
               {links.map((link, index) => (
-                  <div key={index} className='flex flex-col gap-4'>
+                  <div key={index} className='flex flex-col gap-2'>
                       <h1 className='font-bold'>{link.title}</h1>
-                      <div className='flex flex-col gap-4 pl-4'>
+                      <div className='flex flex-col gap-2 pl-4'>
                           {link.lnames.map((link1, index1) => (
                               <div key={index1} className="flex items-center">
                                   {link1.icon}
