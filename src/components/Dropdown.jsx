@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import '../assets/CustomDropdown.css'; // For external styling
 import { FiChevronDown } from 'react-icons/fi'; // Importing the dropdown arrow icon
 
-const CustomDropdown = ({ backgroundColor, height, width, options, defaultText }) => {
+const CustomDropdown = ({ backgroundColor, height, width, options, defaultText, border}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(defaultText);
   const dropdownRef = useRef(null); // To reference the dropdown container
@@ -30,8 +30,8 @@ const CustomDropdown = ({ backgroundColor, height, width, options, defaultText }
   return (
     <div
       ref={dropdownRef}
-      className="dropdown-container w-full h-full"
-      style={{ width: `${width}`, backgroundColor, height: `${height}` }}
+      className="dropdown-container w-full h-full outline-none border-none"
+      style={{ width: `${width}`, backgroundColor, height: `${height}`, border: `${border}` }}
     >
       <div className="dropdown-header w-full h-full flex items-center" onClick={toggleDropdown}>
         <span className='text-sm'>{selectedOption}</span>
@@ -55,7 +55,7 @@ const CustomDropdown = ({ backgroundColor, height, width, options, defaultText }
 };
 
 // Usage
-const App = ({ width, bgcolor, height, placeholder}) => {
+const App = ({ width, bgcolor, height, placeholder, border}) => {
   const dropdownOptions = ['Option 1', 'Option 2', 'Option 3'];
   return (
     <div>
@@ -65,6 +65,7 @@ const App = ({ width, bgcolor, height, placeholder}) => {
         width={width}
         options={dropdownOptions}
         defaultText={placeholder}
+        border={border}
       />
     </div>
   );
