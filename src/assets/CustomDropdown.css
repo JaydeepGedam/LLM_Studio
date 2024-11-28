@@ -44,3 +44,12 @@
   .dropdown-item:hover {
     background-color: #f0f0f0;
   }
+
+  /* For rotating the arrow */
+.dropdown-arrow {
+  transition: transform 0.3s ease; /* Smooth rotation */
+}
+
+.dropdown-arrow.rotate {
+  transform: rotate(180deg); /* Rotates the arrow upside down */
+}
