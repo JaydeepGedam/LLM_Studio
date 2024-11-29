@@ -39,11 +39,11 @@ function App() {
 
     return (
         <Routes>
-            <Route path="/createTSuite" element={<CreateTestSuite />} />
-            <Route path="/" element={<CreateProject />} exact />
-            <Route path="/updateProject" element={<UpdateProject />} />
-            <Route path="/tempapi" element={<TempApi />} />
-            <Route path="/testcaseview" element={<TestCaseView />} />
+            <Route path="/LLM_Studio/createTSuite" element={<CreateTestSuite />} />
+            <Route path="/LLM_Studio" element={<CreateProject />} exact />
+            <Route path="/LLM_Studio/updateProject" element={<UpdateProject />} />
+            <Route path="/LLM_Studio/tempapi" element={<TempApi />} />
+            <Route path="/LLM_Studio/testcaseview" element={<TestCaseView />} />
         </Routes>
     );
 }
