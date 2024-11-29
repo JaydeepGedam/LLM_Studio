@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
 import CreateTestSuite from "./pages/TestSuites/CreateTestSuite";
 import CreateProject from "./pages/Project/CreateProject";
 import UpdateProject from "./pages/Project/UpdateProject";
@@ -48,4 +48,12 @@ function App() {
     );
 }
 
-export default App;
+function AppWrapper() {
+    return (
+        <Router basename={process.env.PUBLIC_URL}>
+            <App />
+        </Router>
+    );
+}
+
+export default AppWrapper;
