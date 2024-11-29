@@ -37,17 +37,13 @@ function App() {
         }
     }, [location]);
 
-    // Check if it's a production environment (deployment) or development (localhost)
-    const isProduction = process.env.NODE_ENV === 'production';
-    const basePath = isProduction ? '/LLM_Studio' : '';
-
     return (
         <Routes>
-            <Route path={`${basePath}/createTSuite`} element={<CreateTestSuite />} />
-            <Route path={`${basePath}/`} element={<CreateProject />} exact />
-            <Route path={`${basePath}/updateProject`} element={<UpdateProject />} />
-            <Route path={`${basePath}/tempapi`} element={<TempApi />} />
-            <Route path={`${basePath}/testcaseview`} element={<TestCaseView />} />
+            <Route path="/LLM_Studio/createTSuite" element={<CreateTestSuite />} />
+            <Route path="/LLM_Studio" element={<CreateProject />} exact />
+            <Route path="/LLM_Studio/updateProject" element={<UpdateProject />} />
+            <Route path="/LLM_Studio/tempapi" element={<TempApi />} />
+            <Route path="/LLM_Studio/testcaseview" element={<TestCaseView />} />
         </Routes>
     );
 }
