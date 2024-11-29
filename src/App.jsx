@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import CreateTestSuite from "./pages/TestSuites/CreateTestSuite";
 import CreateProject from "./pages/Project/CreateProject";
 import UpdateProject from "./pages/Project/UpdateProject";
@@ -40,7 +40,7 @@ function App() {
     return (
         <Routes>
             <Route path="/LLM_Studio/createTSuite" element={<CreateTestSuite />} />
-            <Route path="/LLM_Studio" element={<CreateProject />} exact />
+            <Route path="/LLM_Studio/" element={<CreateProject />} exact />
             <Route path="/LLM_Studio/updateProject" element={<UpdateProject />} />
             <Route path="/LLM_Studio/tempapi" element={<TempApi />} />
             <Route path="/LLM_Studio/testcaseview" element={<TestCaseView />} />
@@ -48,12 +48,4 @@ function App() {
     );
 }
 
-function AppWrapper() {
-    return (
-        <Router basename={process.env.PUBLIC_URL}>
-            <App />
-        </Router>
-    );
-}
-
-export default AppWrapper;
+export default App;
