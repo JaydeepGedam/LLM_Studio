@@ -7,19 +7,17 @@ import TempApi from "./pages/Temp/TempApi";
 import TestCaseView from "./pages/TestCases/TestCaseView";
 
 const updateFaviconAndTitle = ({ title, icon }) => {
-    // Update the page title
     document.title = title;
-
-    // Update the favicon
     const favicon = document.querySelector("link[rel='icon']");
     favicon.href = `https://fonts.gstatic.com/s/i/short-term/release/materialsymbolsoutlined/${icon}/default/48px.svg`;
 };
 
 function App() {
     const location = useLocation();
+    const isProduction = import.meta.env.VITE_ENV === 'production'; // Use Vite's import.meta.env
+    const apiEndpoint = import.meta.env.VITE_API_ENDPOINT_URL;  // Use Vite's import.meta.env
 
     useEffect(() => {
-        // Define metadata for each route
         const routeMetadata = {
             '/': { title: "Create Project", icon: "add_circle" },
             '/updateProject': { title: "Update Project", icon: "edit" },
@@ -28,10 +26,8 @@ function App() {
             '/tempapi': { title: "Temp API Page", icon: "help" },
         };
 
-        // Get metadata for the current route
         const metadata = routeMetadata[location.pathname];
 
-        // Update favicon and title if metadata exists
         if (metadata) {
             updateFaviconAndTitle(metadata);
         }
@@ -39,11 +35,23 @@ function App() {
 
     return (
         <Routes>
-            <Route path="/LLM_Studio/createTSuite" element={<CreateTestSuite />} />
-            <Route path="/LLM_Studio" element={<CreateProject />} exact />
-            <Route path="/LLM_Studio/updateProject" element={<UpdateProject />} />
-            <Route path="/LLM_Studio/tempapi" element={<TempApi />} />
-            <Route path="/LLM_Studio/testcaseview" element={<TestCaseView />} />
+            {isProduction ? (
+                <>
+                    <Route path="/LLM_Studio/createTSuite" element={<CreateTestSuite />} />
+                    <Route path="/LLM_Studio" element={<CreateProject />} />
+                    <Route path="/LLM_Studio/updateProject" element={<UpdateProject />} />
+                    <Route path="/LLM_Studio/tempapi" element={<TempApi />} />
+                    <Route path="/LLM_Studio/testcaseview" element={<TestCaseView />} />
+                </>
+            ) : (
+                <>
+                    <Route path="/createTSuite" element={<CreateTestSuite />} />
+                    <Route path="/" element={<CreateProject />} />
+                    <Route path="/updateProject" element={<UpdateProject />} />
+                    <Route path="/tempapi" element={<TempApi />} />
+                    <Route path="/testcaseview" element={<TestCaseView />} />
+                </>
+            )}
         </Routes>
     );
 }
