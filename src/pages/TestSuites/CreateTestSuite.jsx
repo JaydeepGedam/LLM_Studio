@@ -2,12 +2,27 @@ import React, { useState } from "react";
 import Sidebar from "../../components/Sidebar";
 import '../../assets/CustomDropdown.css'; // For external styling
 import Dropdown from "../../components/Dropdown";
+import PageBody from "../../components/PageBody";
 import { FiChevronDown } from 'react-icons/fi'; // Importing the dropdown arrow icon
+import InputComp from "../../components/InputComp";
 
 const CreateTestSuite = () => {
   const [isSystemPromptDropdownOpen, setIsSystemPromptDropdownOpen] = useState(false);
   const [isLLMDropdownOpen, setIsLLMDropdownOpen] = useState(false); // For LLM Evaluation Config
   const [isSearchDropdownOpen, setIsSearchDropdownOpen] = useState(false); // For Search Evaluation Config
+
+  const [projects, setProjects] = useState([]); // Projects fetched from API
+  const [selectedProject, setSelectedProject] = useState(null); // Selected project ID
+  const [projectDetails, setProjectDetails] = useState({}); // Fetched project details
+  const [parameters, setParameters] = useState([]); // Parameters for the project
+  const [loading, setLoading] = useState(false); // Loading state
+  const [error, setError] = useState(""); // Error messages
+
+  const [projectName, setProjectName] = useState("");
+  const [projectDescription, setProjectDescription] = useState("");
+  const [evalModel, setEvalModel] = useState("");
+  const evalModelOptions = ["Azure Open AI", "Phi 3 Model"];
+  const paramOptions = ["Integer", "String", "Boolean"];
   
   const searchTypeOptions = ["Single Vector With Keyword", "Multi Vector With Keyword"];
   const systemPromptOptions = ["Prompt 1", "Prompt 2", "Prompt 3"]; // Example prompt options
@@ -28,55 +43,57 @@ const CreateTestSuite = () => {
   };
 
   return (
-    <div className="w-[100%] h-fit flex">
-      <div className="w-[30%] h-fit bg-zinc-200 py-6 px-9">
-        <Sidebar />
-      </div>
-      <div className="w-[70%] text-sm h-fit pt-10 pb-10 flex items-center justify-center">
+    <PageBody>
         <div className="w-[80%] flex flex-col gap-6">
           <h1 className="text-4xl font-bold">Enter Test Suite Data</h1>
 
           {/* Project Selection */}
           <div className="flex flex-col gap-2">
-            <h1 className="text-sm">Select the Project</h1>
-            <Dropdown bgcolor="#F0F2F6" height="40px" placeholder="Select the Project" />
+          <h1>Select the Project</h1>
+          <Dropdown
+            bgcolor="#F0F2F6"
+            height="40px"
+            placeholder="Select a Project"
+            options={projects.map((project) => project.title)}
+            selected={
+              projects.find((project) => project.id === selectedProject)?.title ||
+              ""
+            }
+            onChange={(title) =>
+              setSelectedProject(
+                projects.find((project) => project.title === title)?.id || null
+              )
+            }
+          />
+          {/* {error && <p className="text-red-500 text-xs">{error}</p>} */}
+        </div>
+
+        {/* Test Suite Title and Description */}
+        <div className="w-[100%] flex gap-6">
+          {/* Test Suite Title */}
+          <div className="w-[50%] flex flex-col gap-2">
+          <InputComp inputTitle="Test Suite Title *"  projectName={projectName} setProjectName={setProjectName} placeholder="" />
           </div>
 
-          {/* Test Suite Title and Description */}
-          <div className="w-[100%] flex gap-6">
-            <div className="w-[50%] flex flex-col gap-2">
-              <h1 className="">Test Suite Title</h1>
-              <input
-                className="p-3 bg-[#F0F2F6] border-none outline-none rounded-[6px] w-full h-[40px]"
-                type="text"
-                placeholder="Enter the test suite name here."
-              />
-            </div>
-            <div className="w-[50%] flex flex-col gap-2">
-              <h1 className="">Test Suite Description</h1>
-              <input
-                className="p-3 bg-[#F0F2F6] border-none outline-none rounded-[6px] w-full h-[40px]"
-                type="text"
-                placeholder="Enter the test suite information here."
-              />
-            </div>
+          {/* Test Suite Description */}
+          <div className="w-[50%] flex flex-col gap-2">
+          <InputComp inputTitle="Test Suite Description"  projectName={projectName} setProjectName={setProjectName} placeholder="" />
+          </div>
+        </div>
+
+        {/* LLM Model and SearchType */}
+        <div className="w-[100%] flex gap-6">
+          {/* LLM Model */}
+          <div className="w-[50%] flex flex-col gap-2">
+          <InputComp inputTitle="LLM Model/ Deployment Name"  projectName={projectName} setProjectName={setProjectName} placeholder="" />
           </div>
 
-          {/* LLM Model and SearchType */}
-          <div className="w-[100%] flex gap-6">
-            <div className="w-[50%] flex flex-col gap-2">
-              <h1 className="">LLM Model/ Deployment Name</h1>
-              <input
-                className="p-3 bg-[#F0F2F6] border-none outline-none rounded-[6px] w-full h-[40px]"
-                type="text"
-                placeholder=""
-              />
-            </div>
-            <div className="w-[50%] flex flex-col gap-2">
+          {/* Search Type */}
+          <div className="w-[50%] flex flex-col gap-2">
               <h1 className="">SearchType</h1>
               <Dropdown width="w-[50%]" height="40px" bgcolor="#F0F2F6" placeholder="Select" options={searchTypeOptions} />
             </div>
-          </div>
+        </div>
 
           {/* System Prompts Section */}
           <div className="w-[100%] flex flex-col gap-2">
@@ -188,8 +205,7 @@ const CreateTestSuite = () => {
           {/* Create Test Suite Button */}
           <button className="w-fit text-base rounded-md px-4 py-2 border border-[#D5D6D8] mt-6">Create Test Suite</button>
         </div>
-      </div>
-    </div>
+      </PageBody>
   );
 };
 
