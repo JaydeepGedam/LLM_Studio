@@ -124,7 +124,7 @@ const CreateProject = () => {
   return (
     <PageBody>
       <div className="w-[80%] flex flex-col gap-6 pt-10">
-          <h1 className="text-4xl font-bold">Create Your Project</h1>
+          <h1 className="text-4xl font-bold">Create Your Project.</h1>
 
           {/* Project Title */}
           <InputComp inputTitle="Project Title *"  projectName={projectName} setProjectName={setProjectName} />
